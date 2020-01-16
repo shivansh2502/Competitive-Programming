@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "iostream": "cpp",
+        "iterator": "cpp",
+        "bitset": "cpp",
+        "ostream": "cpp",
+        "cmath": "cpp",
+        "random": "cpp"
+    }
+    // "code-runner.runInTerminal": true
+
+    
+}
