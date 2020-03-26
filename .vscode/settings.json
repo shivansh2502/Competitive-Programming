@@ -5,7 +5,9 @@
         "bitset": "cpp",
         "ostream": "cpp",
         "cmath": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "unordered_map": "cpp",
+        "complex": "cpp"
     }
     // "code-runner.runInTerminal": true
 

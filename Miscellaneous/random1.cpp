@@ -10,6 +10,17 @@ void func1(int *a){
 
 int main(){
     int a[10];
-    func1(a);
+    // func1(a);
+    set<int> s;
+    s.insert(7);
+    s.insert(10);
+    s.insert(1);
+    s.insert(0);
+    s.insert(101);
+
+    for(auto i:s){
+        cout<<i<<endl
+    }
+
     return 0;
 }
