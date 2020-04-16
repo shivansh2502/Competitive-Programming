@@ -57,6 +57,7 @@ int maxdepth(node *root){
 }
 
 int minValue(node *root){
+
     if(root->left==NULL){
         return root->data;
     }
@@ -70,7 +71,7 @@ int maxValue(node *root){
         return root->data;
     }
     else{
-        return minValue(root->right);
+        return maxValue(root->right);
     }
 }
 
@@ -247,7 +248,7 @@ bool isBst2(node * root){
 
 
 int main(){
-
+    
     node *root= NULL;
     insert(root, 3);
     insert(root, 2);
@@ -266,11 +267,8 @@ int main(){
     insert(root2, 5);
     insert(root2, 10);
 
-
     cout<<"Size of the tree is : "<<size(root)<<endl;
-
     cout<<"Maximum Depth or height of the tree is : "<<maxdepth(root)<<endl;
-
     cout<<"Minimum Value in the tree is : "<<minValue(root)<<endl;
 
     cout<<"PreOrder : ";
@@ -291,7 +289,6 @@ int main(){
     cout<<"Print all the paths from root to leaf:"<<endl;
     printPaths(root);
 
-
     mirrorImage(root);
     mirrorImage(root);
     cout<<"InOrder : ";
@@ -304,11 +301,8 @@ int main(){
     cout<<endl;
 
     cout<<"Same Trees: "<<sameTree(root, root2)<<endl;
-
     cout<<"COUNT TREES :"<<countTrees(4)<<endl;
-
     cout<<"Is Bst1: "<<isBst1(root)<<endl;
-
     cout<<"Is Bst2: "<<isBst2(root)<<endl;
 
     return 0;

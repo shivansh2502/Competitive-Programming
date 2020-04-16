@@ -18,6 +18,8 @@ public:
         for(auto i:adjlist){
             dist[i.first]=INT_MAX;
         }
+        unordered_map<T, T> parent;
+
         dist[src]=0;
         set<pair<int, T>> s;
         s.insert(make_pair(0,src));
@@ -36,6 +38,7 @@ public:
                     if(f!=s.end()){
                         s.erase(f);
                     }
+                    parent[dest]=node;
 
                     dist[dest]= nodeDist+ childpair.second;
                     s.insert(make_pair(dist[dest], dest));
@@ -45,6 +48,15 @@ public:
         }
         for(auto d: dist){
             cout<<d.first<<" is located at distance "<< d.second<<" from the source"<<endl;
+        }
+        for(auto i: parent){
+            cout<<i.first<<"->"<<i.second<<",";
+            int k=i.second;
+            while(parent.count(k)){
+                cout<<parent[k]<<",";
+                k=parent[k];
+            }
+            cout<<endl;
         }
 
     }
