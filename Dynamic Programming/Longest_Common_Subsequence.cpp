@@ -13,36 +13,38 @@ int LCS(char x[], char y[], int i, int j){
     else return max(LCS(x, y, i+1, j) , LCS(x, y, i, j+1));
 }
 
-string s;
-void findSubstring(int dp[][1001], int m, int n, char x[], int l){
+
+//print all LCS 
+int dp[100][100]={0};
+set<string> findSubseeq(int m, int n, char x[], char y[]){
+    set<string> s;
     if(m==0 || n==0){
-        if(s.length()==l){
-            cout<<s<<endl;
-            s.clear();
+        s.insert("");
+        return s;
+    }
+
+    if(x[m-1]== y[n-1]){
+        set<string> temp=findSubseeq(m-1, n-1, x, y);
+        for(auto i:temp) s.insert(i+ x[m-1]);
+    }
+
+    else{
+        if(dp[m-1][n]==dp[m][n]){
+            set<string> temp=findSubseeq(m-1, n, x, y);
+            for(auto i:temp) s.insert(i);
         }
-        s.clear();
-        return;
+        if(dp[m][n-1]==dp[m][n]){
+            set<string> temp=findSubseeq(m, n-1, x, y);
+            for(auto i:temp) s.insert(i);
+        }
     }
-
-    if(dp[m-1][n]==dp[m][n-1] && dp[m-1][n]!= dp[m][n]){
-        s= x[m-1] + s; 
-        findSubstring(dp, m-1, n-1, x, l);
-    }
-
-    if(dp[m-1][n]==dp[m][n]){
-        findSubstring(dp, m-1, n, x, l);
-    }
-    else if(dp[m][n-1]==dp[m][n]){
-        findSubstring(dp, m, n-1, x, l);
-    }
-    
+    return s;
 }
 
 // using bottom up dp
 int LCSdp(char x[], char y[]){
     int m = strlen(x);
     int n = strlen(y);
-    int dp[m+1][1001]={0};
 
     for(int i=0;i<=n;i++) dp[0][i]=0;
     for(int j=0;j<=m;j++) dp[j][0]=0;
@@ -57,8 +59,6 @@ int LCSdp(char x[], char y[]){
             }
         }
     }
-    // findSubstring(dp, m, n, x, dp[m][n]);
-    // return;
     return dp[m][n];
 }
 
@@ -67,7 +67,12 @@ int LCSdp(char x[], char y[]){
 int main(){
     char x[1000], y[1000];
     cin>>x>>y;
+    memset(dp, 0, sizeof(dp));
     cout<<LCSdp(x,y)<<endl;
+    set<string> s= findSubseeq(strlen(x), strlen(y), x, y);
+    for(auto i:s){
+        cout<<i<<endl;
+    }
     // LCSdp(x,y);
     return 0;
 }

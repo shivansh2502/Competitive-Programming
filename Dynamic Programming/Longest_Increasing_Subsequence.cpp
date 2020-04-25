@@ -2,6 +2,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+
 int LIS(int a[], int n){
     int dp[100];
     for(int i=0;i<n;i++) dp[i]=1;
