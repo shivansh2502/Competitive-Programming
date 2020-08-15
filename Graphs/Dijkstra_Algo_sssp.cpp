@@ -15,12 +15,10 @@ public:
     void dijkstraalgo(T src){
         
         unordered_map<T,int> dist;
-        for(auto i:adjlist){
-            dist[i.first]=INT_MAX;
-        }
+        for(auto i:adjlist) dist[i.first]=INT_MAX;
         unordered_map<T, T> parent;
 
-        dist[src]=0;
+        dist[src]=0;    
         set<pair<int, T>> s;
         s.insert(make_pair(0,src));
         
@@ -42,13 +40,14 @@ public:
 
                     dist[dest]= nodeDist+ childpair.second;
                     s.insert(make_pair(dist[dest], dest));
-
                 }
             }
         }
+
         for(auto d: dist){
             cout<<d.first<<" is located at distance "<< d.second<<" from the source"<<endl;
         }
+
         for(auto i: parent){
             cout<<i.first<<"->"<<i.second<<",";
             int k=i.second;
@@ -58,7 +57,6 @@ public:
             }
             cout<<endl;
         }
-
     }
 
 };

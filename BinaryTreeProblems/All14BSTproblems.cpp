@@ -31,21 +31,17 @@ void insert( node*& root, int d){
 }
 
 int size(node *root){
-
     if(root==NULL){
         return 0;
-    }
-
+    }   
     else{
         int leftsize = size(root->left);
         int rightsize = size(root->right);
         return leftsize+rightsize+1;
     }
-
 }
 
 int maxdepth(node *root){
-    
     if(root==NULL){
         return 0;
     }
@@ -237,9 +233,10 @@ bool isBst1(node* root){
 bool isBstUtil( node * root, int min, int max){
     if(root== NULL) return true;
 
-    if(root->data<min || root->data> max) return false;
-
-    return (isBstUtil( root->left, min, root->data) && isBstUtil( root->right, root->data, max));
+    if((root->data > min && root->data <= max)  && isBstUtil(root->left, min, root->data) && isBstUtil(root->right,root->data, max)) 
+        return true;
+        
+    return false;
 }
 
 bool isBst2(node * root){

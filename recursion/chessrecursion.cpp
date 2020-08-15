@@ -66,8 +66,10 @@ void func(int i, int j, int n, unordered_map<pair<int, int>, bool,  hash_pair> &
 }
 
 int main(){
+    
     ios::sync_with_stdio(false);
     cin.tie(0);
+
     int i, j, n;
     cin>>i>>j>>n;
 
