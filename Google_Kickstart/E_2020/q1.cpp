@@ -20,7 +20,7 @@ using namespace std;
 #define mod             1000000007
 #define MOD             998244353;
 #define inf             1e18
-#define ps(x,y)         fixed<<setprecision(y)<<x
+#define ps(x,y)         fixed<<setprecision(y)<
 #define mk(arr,n,type)  type *arr=new type[n];
 #define w(x)            int x; cin>>x; while(x--)
 #define PI              3.1415926535897932384626
@@ -56,26 +56,46 @@ int mpow(int base, int exp) {
 void sm25official()
 {
     ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-#ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-#endif
+// #ifndef ONLINE_JUDGE
+//     freopen("input.txt", "r", stdin);
+//     freopen("output.txt", "w", stdout);
+// #endif
 }
 
 int32_t main(){
     sm25official();
 
-    string a, b;
-    cin>>a>>b;
+    int te=1;
+    w(t){
+        cout<<"Case #"<<te<<": ";
 
-    map<int, int> m;
-    for(int i=0;i<a.length();i++) m[a[i]]++;
-    int count=0;
-    for(int i=0;i<b.length();i++){
-        if(m[b[i]]>0) count+=m[b[i]];
+        int n;
+        cin>>n;
+        int a[n];
+
+        f(i, n) cin>>a[i];
+
+        int dif[n-1];
+        for(int i=0;i<n-1;i++) dif[i]= a[i]- a[i+1];
+
+        int value=INT_MIN;
+        int count=0;
+        int maxcount=INT_MIN;
+        for(int i=0;i<n-1;i++){
+            if(dif[i]!=value){
+                maxcount= max(maxcount, count);
+                count=1;
+                value= dif[i];
+            }
+            else count++;
+        }
+        maxcount= max(count, maxcount);
+
+        cout<<maxcount+1<<endl;
+        te++;
     }
-
-    cout<<count<<endl;
     
     return 0;
 }
+
+

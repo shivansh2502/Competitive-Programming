@@ -62,20 +62,76 @@ void sm25official()
 #endif
 }
 
+double ans=0;
+
+bool isSorted(int a[], int n){
+    for(int i=0;i<n;i++){
+        if(a[i]!=i+1) return false;
+    }
+    return true;
+}
+
+void func(int a[], vector<pair<int, double>> v, int i, int m, double prob, int n){
+
+    if(i==m){
+        if(isSorted(a, n)){
+            ans+=prob;
+        }
+        
+        return;
+    }
+    if(isSorted(a,n)){
+        ans+=prob;
+    }
+    
+    else{
+        if(v[i].ff==1){
+            func(a, v, i+1, m, prob, n);
+        }
+        else{
+            if(v[i].ss==1){
+                sort(a, a+v[i].ff);
+                func(a, v, i+1, m, prob*v[i].ss, n);
+            }
+            else{
+
+                int b[n];
+                f(i, n) b[i]=a[i];
+
+                func(a, v, i+1, m, prob*(1-v[i].ss), n);
+                // cout<<prob*v[i].ss<<endl;
+                sort(b, b+v[i].ff);
+                func(b, v, i+1, m, prob*v[i].ss, n);
+            }
+        }
+    }
+    return;
+}
+
 int32_t main(){
     sm25official();
 
-    string a, b;
-    cin>>a>>b;
+    w(t){
+        ans=0;
+        int n, m;
+        cin>>n>>m;
 
-    map<int, int> m;
-    for(int i=0;i<a.length();i++) m[a[i]]++;
-    int count=0;
-    for(int i=0;i<b.length();i++){
-        if(m[b[i]]>0) count+=m[b[i]];
+        int a[n];
+        f(i, n) cin>>a[i];
+
+        vector<pair<int, double>> v(m);
+        f(i, m) cin>>v[i].ff>>v[i].ss;
+
+        double prob= 1;
+        func(a, v, 0, m, prob, n);
+
+        cout<<fixed<<setprecision(6)<<ans<<endl;
+
+
+        // cout<<endl;
+
     }
-
-    cout<<count<<endl;
+    
     
     return 0;
 }

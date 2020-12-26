@@ -65,17 +65,20 @@ void sm25official()
 int32_t main(){
     sm25official();
 
-    string a, b;
-    cin>>a>>b;
+    w(t){
+        int a, b;
+        cin>>a>>b;
 
-    map<int, int> m;
-    for(int i=0;i<a.length();i++) m[a[i]]++;
-    int count=0;
-    for(int i=0;i<b.length();i++){
-        if(m[b[i]]>0) count+=m[b[i]];
+        int evena= a/2;
+        int odda= a-evena;
+
+        int evenb= b/2;
+        int oddb= b-evenb;
+
+        int ans= evenb*evena + oddb*odda;
+        cout<<ans<<endl;
     }
-
-    cout<<count<<endl;
+    
     
     return 0;
 }

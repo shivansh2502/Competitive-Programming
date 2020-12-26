@@ -65,17 +65,30 @@ void sm25official()
 int32_t main(){
     sm25official();
 
-    string a, b;
-    cin>>a>>b;
-
-    map<int, int> m;
-    for(int i=0;i<a.length();i++) m[a[i]]++;
-    int count=0;
-    for(int i=0;i<b.length();i++){
-        if(m[b[i]]>0) count+=m[b[i]];
+    w(t){
+        int n, k;
+        cin>>n>>k;
+        int countpos=0;
+        int countneg=0;
+        for(int i=1;i<=n;i++){
+            if(i%2!=0){
+                cout<<i<<" ";
+                countpos++;
+            }
+            else{
+                cout<<-i<<" ";
+                countneg++;
+            }
+            if(countpos==k){
+                for(int j=i+1;j<=n;j++) cout<<-j<<" ";
+                break;
+            }
+            else if(countneg==n-k){
+                for(int j=i+1;j<=n;j++) cout<<j<<" ";
+                break;
+            }
+        }
+        cout<<endl;
     }
-
-    cout<<count<<endl;
-    
     return 0;
 }

@@ -56,26 +56,73 @@ int mpow(int base, int exp) {
 void sm25official()
 {
     ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-#ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-#endif
+// #ifndef ONLINE_JUDGE
+//     freopen("input.txt", "r", stdin);
+//     freopen("output.txt", "w", stdout);
+// #endif
 }
+
+
+int power(int x, int y, int p){ 
+    int res = 1;  
+    x = x % p; 
+
+    while (y > 0) { 
+        if (y & 1) 
+            res = (res * x) % p; 
+  
+        y = y >> 1; // y = y/2 
+        x = (x * x) % p; 
+    } 
+    return res; 
+} 
+  
+int modInverse(int n, int p){ 
+    return power(n, p - 2, p); 
+}
+
+int nCrModPFermat(int n, int r, int p){ 
+    
+    if (r == 0) 
+        return 1; 
+  
+    int fac[n + 1]; 
+    fac[0] = 1; 
+    for (int i = 1; i <= n; i++) 
+        fac[i] = (fac[i - 1] * i) % p; 
+  
+    return (fac[n] * modInverse(fac[r], p) % p * modInverse(fac[n - r], p) % p) % p; 
+} 
 
 int32_t main(){
     sm25official();
 
-    string a, b;
-    cin>>a>>b;
+    w(t){
+        int n;
+        cin>>n;
 
-    map<int, int> m;
-    for(int i=0;i<a.length();i++) m[a[i]]++;
-    int count=0;
-    for(int i=0;i<b.length();i++){
-        if(m[b[i]]>0) count+=m[b[i]];
+        int c[n];
+        f(i, n) cin>>c[i];
+
+        sort(c, c+n, greater<int>());
+
+        int high=INT_MIN;
+        int count=0;
+        for(int i=0;i<n;i++){
+            if(c[i]> high){
+                high=c[i];
+                count=1;
+            }
+            else if(c[i]==high) count++;
+            else break;
+        }
+
+        int ans=0;
+        if(count%2!=0) ans= mpow(2, n);
+        else ans= ((mpow(2, n)%mod) - ((nCrModPFermat(count, count/2, mod)%mod)*(mpow(2, n-count)%mod))%mod  +  mod) % mod;
+        cout<<ans<<endl;
+
     }
-
-    cout<<count<<endl;
     
     return 0;
 }

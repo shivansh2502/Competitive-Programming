@@ -62,20 +62,47 @@ void sm25official()
 #endif
 }
 
+void targetSum(int a[], int n, int x, int i, vector<int> v){
+    if(x<0) return;
+    if(x==0){
+        for(int j=i;j<n;j++){
+            if(a[j]==0){
+                 v.push_back(a[j]);
+                targetSum(a, n, x-a[j], j+1, v);
+                v.pop_back();
+            }
+        }
+        for(int i=0;i<v.size();i++){
+            cout<<v[i]<<", ";
+        }
+        cout<<"."<<endl;
+        return;
+    }
+
+    for(int j=i;j<n;j++){
+        v.push_back(a[j]);
+        targetSum(a, n, x-a[j], j+1, v);
+        v.pop_back();
+    }
+
+}
+
 int32_t main(){
     sm25official();
 
-    string a, b;
-    cin>>a>>b;
+    int n;
+    cin>>n;
+    
+    int a[n];
+    f(i, n) cin>>a[i];
 
-    map<int, int> m;
-    for(int i=0;i<a.length();i++) m[a[i]]++;
-    int count=0;
-    for(int i=0;i<b.length();i++){
-        if(m[b[i]]>0) count+=m[b[i]];
-    }
+    int x;
+    cin>>x;
 
-    cout<<count<<endl;
+    vector<int> v;
+
+    targetSum(a, n, x, 0, v);
+    
     
     return 0;
 }

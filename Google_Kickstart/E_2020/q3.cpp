@@ -65,17 +65,49 @@ void sm25official()
 int32_t main(){
     sm25official();
 
-    string a, b;
-    cin>>a>>b;
+    int te=1;
+    w(t){
+        cout<<"Case #"<<te<<": ";
 
-    map<int, int> m;
-    for(int i=0;i<a.length();i++) m[a[i]]++;
-    int count=0;
-    for(int i=0;i<b.length();i++){
-        if(m[b[i]]>0) count+=m[b[i]];
+        int n;
+        cin>>n;
+        int e[n], r[n];
+        f(i, n) cin>>e[i]>>r[i];
+
+        int time=0;
+
+        int rem[n]={0};
+
+        bool flag=true;
+
+        while(flag){
+            
+            for(int i=0;i<=n;i++){
+                i=i%n;
+                if(rem[i]==0){
+                    rem[i]= r[i];
+                    for(int j=0;j<n;j++){
+                        if(j!=i){
+                            if(rem[j]>e[i]) rem[j]-=e[i];
+                            else rem[j]=0;
+                        }
+                    }
+                    time+=e[i];
+                }
+                else{
+                    flag=false;
+                    break;
+                }
+            }
+            
+        }
+        
+
+
+        te++;
     }
-
-    cout<<count<<endl;
     
     return 0;
 }
+
+

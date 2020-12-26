@@ -65,17 +65,67 @@ void sm25official()
 int32_t main(){
     sm25official();
 
-    string a, b;
-    cin>>a>>b;
+    w(t){
+        int n, x;
+        cin>>n>>x;
 
-    map<int, int> m;
-    for(int i=0;i<a.length();i++) m[a[i]]++;
-    int count=0;
-    for(int i=0;i<b.length();i++){
-        if(m[b[i]]>0) count+=m[b[i]];
+        int a[n];
+        f(i, n) cin>>a[i];
+
+        bool count[32];
+        for(int i=0;i<32;i++) count[i]=0;   
+
+
+        f(i, n-1){
+            bitset<32> b(a[i]);
+            int j=31;
+            if(x>0){
+                for(;j>=0;j--){
+                    if(b[j]==1){
+                        if(count[j]==1) count[j]=0;
+                        else{
+                            count[j]=1;
+                            x--;
+                        }
+                        b[j]=0;
+                        // cout<<j<<" "<<x<<endl;
+                    } 
+                    if(x==0){
+                        j--;
+                        break;
+                    }
+                }
+            }
+            if(x==0){
+                for(;j>=0;j--){
+                    if(b[j]==1 && count[j]==1){
+                        count[j]=0;
+                        b[j]=0;
+                        // cout<<j<<" "<<x<<endl;
+                    }
+                }
+            }
+            a[i]=(int)(b.to_ullong());
+            // cout<<ans[i]<<" ";
+        }
+
+        bitset<32> b(a[n-1]);
+        for(int i=31;i>=0;i--){
+            if(count[i]==1){
+                count[i]=0;
+                b[i]= b[i]^1;
+            }
+        }
+        a[n-1]=(int)(b.to_ullong());
+        // cout<<ans[n-1]<<endl;
+        if(n==2 && x%2!=0){
+            a[n-1]^=1;
+            a[n-2]^=1;
+        }
+        f(i, n) cout<<a[i]<<" ";
+
+        
+        cout<<endl;
     }
-
-    cout<<count<<endl;
-    
     return 0;
 }

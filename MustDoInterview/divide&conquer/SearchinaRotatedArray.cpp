@@ -1,23 +1,22 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int findelement(int *a, int k, int n){
+int findelement(int *nums, int target, int n){
     int e=n-1;
     int s=0;
     
     while(s<=e){
-        int mid= (s+e)/2;
-        if(a[mid]==k){
-            return mid;
-        }
-        if(a[mid]<=a[e]){
-            if(k> a[mid] && k<=a[e]) s= mid+1;
-            else e= mid-1;
-        }
-        else{
-            if(k>= a[s] && k<a[mid]) e= mid-1;
+        int mid=(s+e)/2;
+        if(nums[mid]==target) return mid;
+        
+        if(nums[mid]>=nums[0]){
+            if(target>= nums[s] && target<= nums[mid]) e=mid-1;
             else s=mid+1;
         }
+        else{
+            if(target>=nums[mid] && target<= nums[e]) s=mid+1;
+            else e=mid-1;
+        } 
     }
     return -1;
 }

@@ -62,20 +62,71 @@ void sm25official()
 #endif
 }
 
+void floodfill(int a[][10], int i, int j, int n, int m, bool visited[][10], string s){
+
+    if(i>=n || j>=m || i<0 || j<0) return;
+    
+    if(i==n-1 && j==m-1){
+        cout<<s<<endl;
+        return;
+    }
+
+    if(i-1>=0){
+        if(a[i-1][j]==0 && !visited[i-1][j]){
+            visited[i-1][j]=1;
+            s+='t';
+            floodfill(a, i-1, j, n, m, visited, s);
+            s.pop_back();
+            visited[i-1][j]=0;
+        }
+    }
+    if(j-1>=0){
+        if(a[i][j-1]==0 && !visited[i][j-1]){
+            visited[i][j-1]=1;
+            s+='l';
+            floodfill(a, i, j-1, n, m, visited, s);
+            s.pop_back();
+            visited[i][j-1]=0;
+        } 
+    }
+    if(i+1<n){
+        if(a[i+1][j]==0 && !visited[i+1][j]){
+            visited[i+1][j]=1;
+            s+='d';
+            floodfill(a, i+1, j, n, m, visited, s);
+            s.pop_back();
+            visited[i+1][j]=0;
+        }
+    }
+    if(j+1<m){
+        if(a[i][j+1]==0 && !visited[i][j+1]){
+            visited[i][j+1]=1;
+            s+='r';
+            floodfill(a, i, j+1, n, m, visited, s);
+            s.pop_back();
+            visited[i][j+1]=0;
+        }
+    }
+}
+
 int32_t main(){
     sm25official();
 
-    string a, b;
-    cin>>a>>b;
+    int n, m;
+    cin>>n>>m;
 
-    map<int, int> m;
-    for(int i=0;i<a.length();i++) m[a[i]]++;
-    int count=0;
-    for(int i=0;i<b.length();i++){
-        if(m[b[i]]>0) count+=m[b[i]];
+    int a[10][10];
+
+    f(i, n){
+        f(j, m){
+            cin>>a[i][j];
+        }
     }
+    bool visited[10][10];
+    memset(visited, 0, sizeof(visited));
+    string s="";
+    visited[0][0]=1;
+    floodfill(a, 0, 0, n, m, visited, s);
 
-    cout<<count<<endl;
-    
     return 0;
 }

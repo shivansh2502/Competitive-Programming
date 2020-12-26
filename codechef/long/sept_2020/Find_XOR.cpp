@@ -56,26 +56,69 @@ int mpow(int base, int exp) {
 void sm25official()
 {
     ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-#ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-#endif
+// #ifndef ONLINE_JUDGE
+//     freopen("input.txt", "r", stdin);
+//     freopen("output.txt", "w", stdout);
+// #endif
 }
 
 int32_t main(){
     sm25official();
 
-    string a, b;
-    cin>>a>>b;
+    w(t){
+        int n;
+        cin>>n;
+        int y= pow(2, 0);
+        cout<<1<<" "<<(int)pow(2, 20) + y<<endl;
+        int sum;
+        cin>>sum;
+        sum-=n*pow(2, 20);
+        int ans=0;
+        if(n%2==0){
+            if(sum%2!=0) ans+=y;
+        }
+        else{
+            if(sum%2==0) ans+=y;
+        }
 
-    map<int, int> m;
-    for(int i=0;i<a.length();i++) m[a[i]]++;
-    int count=0;
-    for(int i=0;i<b.length();i++){
-        if(m[b[i]]>0) count+=m[b[i]];
+        int a[20];
+        for(int i=1;i<=19;i++){
+            int x= pow(2,i);
+            cout<<1<<" "<<x+y<<endl;
+            cin>>a[i];
+        }
+
+        
+
+        for(int i=1;i<=19;i++){
+            int total=0;
+            int x= pow(2, i);
+            if(a[i] >  sum){
+                int dif = (a[i]-sum)/x;
+                total = (n-dif)/2;
+            }
+            else if(a[i] < sum){
+                int dif = (sum-a[i])/x;
+                total = (n+dif)/2;
+            }
+            else{
+                total=n/2;
+            }
+            if(total%2 != 0) ans+= x;
+        }
+
+        cout<<2<<" "<<ans<<endl;
+
+        int res;
+        cin>>res;
+        if(res==-1) return 0;
     }
 
-    cout<<count<<endl;
+    
     
     return 0;
 }
+
+
+// 4 8 9 5
+// 

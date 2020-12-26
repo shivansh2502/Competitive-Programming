@@ -62,20 +62,24 @@ void sm25official()
 #endif
 }
 
+
+
+
 int32_t main(){
     sm25official();
 
-    string a, b;
-    cin>>a>>b;
+    int n;
+    cin>>n;
 
-    map<int, int> m;
-    for(int i=0;i<a.length();i++) m[a[i]]++;
-    int count=0;
-    for(int i=0;i<b.length();i++){
-        if(m[b[i]]>0) count+=m[b[i]];
+
+    if(n%2==0){
+        cout<<(n/2 +1)*(n/2 +1)<<endl;
     }
-
-    cout<<count<<endl;
+    else{
+        int k= (n+1)/2;
+        cout<<2*k*(k+1)<<endl;
+    }
+    
     
     return 0;
 }

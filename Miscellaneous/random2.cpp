@@ -17,8 +17,8 @@ using namespace std;
 #define pqs             priority_queue<int,vi,greater<int> >
 #define setbits(x)      __builtin_popcountll(x)
 #define zrobits(x)      __builtin_ctzll(x)
-#define mod             1000000007
-#define MOD             998244353;
+#define mod             1337
+// #define MOD             998244353;
 #define inf             1e18
 #define ps(x,y)         fixed<<setprecision(y)<<x
 #define mk(arr,n,type)  type *arr=new type[n];
@@ -31,15 +31,15 @@ typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_
 
 
 
-int inv(int a) {
-    int r = 1, t = a, k = MOD - 2;
-    while (k) {
-        if (k & 1) r = (long long) r * t % MOD;
-        t = (long long) t * t % MOD;
-        k >>= 1;
-    }
-    return r;
-}
+// int inv(int a) {
+//     int r = 1, t = a, k = MOD - 2;
+//     while (k) {
+//         if (k & 1) r = (long long) r * t % MOD;
+//         t = (long long) t * t % MOD;
+//         k >>= 1;
+//     }
+//     return r;
+// }
 
 int mpow(int base, int exp) {
   base %= mod;
@@ -63,19 +63,29 @@ void sm25official()
 }
 
 int32_t main(){
-    sm25official();
+    // sm25official();
 
-    string a, b;
-    cin>>a>>b;
+    int n;
+    cin>>n;
 
-    map<int, int> m;
-    for(int i=0;i<a.length();i++) m[a[i]]++;
-    int count=0;
-    for(int i=0;i<b.length();i++){
-        if(m[b[i]]>0) count+=m[b[i]];
+    int x;
+    cin>>x;
+
+
+    int a[x];
+    for(int i=0;i<x;i++){
+        cin>>a[i];
     }
+    
+    int rem = 0; 
+    int MOD = 1337; 
+  
+    
+    for (int i=0; i<x; i++) 
+        rem = (rem * 10 + a[i]) % (MOD - 1); 
 
-    cout<<count<<endl;
+    cout << mpow(n, rem) << endl; 
+
     
     return 0;
 }

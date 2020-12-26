@@ -56,26 +56,50 @@ int mpow(int base, int exp) {
 void sm25official()
 {
     ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-#ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-#endif
+// #ifndef ONLINE_JUDGE
+//     freopen("input.txt", "r", stdin);
+//     freopen("output.txt", "w", stdout);
+// #endif
 }
 
 int32_t main(){
     sm25official();
 
-    string a, b;
-    cin>>a>>b;
+    int te=1;
+    w(t){
+        cout<<"Case #"<<te<<": ";
+        
+        int n, a, b, c;
+        cin>>n>>a>>b>>c;
+       
+        if( 
+        (a==1 && b==1 && c==1 && n!=1) ||
+        (c>min(a, b)) ||
+        c< (a+b-n)
+        ) cout<<"IMPOSSIBLE"<<endl;
+        
+        else{
 
-    map<int, int> m;
-    for(int i=0;i<a.length();i++) m[a[i]]++;
-    int count=0;
-    for(int i=0;i<b.length();i++){
-        if(m[b[i]]>0) count+=m[b[i]];
+            int ans[n];
+            f(i, n) ans[i]=1;
+
+            for(int i=a-c;i<a;i++) ans[i]=n;
+            for(int i=0;i<a-c;i++) ans[i]= n-1;
+            for(int i=n-1;i>= n-b+c ;i--)ans[i]= n-1;
+
+            if(b==c) swap(ans[a-1], ans[n-1]);
+
+            for(int i=0;i<n;i++) cout<<ans[i]<<" ";
+            cout<<endl;
+
+        }
+
+
+
+        te++;
     }
-
-    cout<<count<<endl;
     
     return 0;
 }
+
+

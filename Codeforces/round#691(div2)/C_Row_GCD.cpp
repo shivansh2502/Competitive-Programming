@@ -51,6 +51,12 @@ int mpow(int base, int exp) {
   }
   return result;
 }
+
+int gcd(int a, int b) { 
+    if (a == 0) 
+        return b; 
+    return gcd(b % a, a); 
+} 
  
  
 void sm25official()
@@ -65,17 +71,35 @@ void sm25official()
 int32_t main(){
     sm25official();
 
-    string a, b;
-    cin>>a>>b;
+    int n, m;
+    cin>>n>>m;
 
-    map<int, int> m;
-    for(int i=0;i<a.length();i++) m[a[i]]++;
-    int count=0;
-    for(int i=0;i<b.length();i++){
-        if(m[b[i]]>0) count+=m[b[i]];
+    int a[n];
+    int b[m];
+    f(i, n) cin>>a[i];
+    f(i, m) cin>>b[i];
+
+    sort(a, a+n);
+
+    if(n==1){
+        f(i, m){
+            cout<<a[0]+b[i]<<" ";
+        }
     }
 
-    cout<<count<<endl;
-    
+    else{
+        int pregcd=a[1]-a[0];
+        for(int i=2;i<n;i++){
+            pregcd= gcd(pregcd, a[i]-a[i-1]);
+            if(pregcd==1)
+                break;
+        }
+        
+        f(i, m){
+            if(pregcd==1) cout<<1<<" ";
+            else cout<<gcd(pregcd, a[0]+b[i])<<" ";
+        }
+        
+    }
     return 0;
 }

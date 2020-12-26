@@ -56,26 +56,89 @@ int mpow(int base, int exp) {
 void sm25official()
 {
     ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-#ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-#endif
+// #ifndef ONLINE_JUDGE
+//     freopen("input.txt", "r", stdin);
+//     freopen("output.txt", "w", stdout);
+// #endif
 }
 
 int32_t main(){
     sm25official();
 
-    string a, b;
-    cin>>a>>b;
+    w(t){
+        int n;
+        cin>>n;
+        if(n==0) {
+            cout<<0<<"\n";
+            continue;
+        }
+       
+        int sum= n*(n+1)/2;
+        if(sum%2==0){
+            int ans=0;
+            sum/=2;
 
-    map<int, int> m;
-    for(int i=0;i<a.length();i++) m[a[i]]++;
-    int count=0;
-    for(int i=0;i<b.length();i++){
-        if(m[b[i]]>0) count+=m[b[i]];
+            int s=1;
+            int e=n;
+            int dif=10e10;
+            int m=-1;
+            while(s<=e){
+                int mid= (s+e)/2;
+                int k= mid*(mid+1)/2 + n;
+                if(k>=sum){
+                    if(dif>k-sum){
+                        dif=k-sum;
+                        m=mid;
+                    }
+                    e=mid-1;
+                }
+                else s=mid+1;
+            }
+           
+            for(int i=m;i<n;i++){
+                int s= i*(i+1)/2 + n;
+                int dif=s-sum;
+               
+                if(dif<=i) ans+= min(dif, n-i);
+                else if(dif<n) ans+= min(n-dif, i);
+                else if(dif==n) ans+= (i-1)*i/2 + (n-i-1)*(n-i)/2;
+                else break;
+            }
+            cout<<ans<<"\n";
+
+        }
+        else{
+            cout<<0<<"\n";
+        }
     }
-
-    cout<<count<<endl;
+    
     
     return 0;
 }
+
+
+// for n=3
+// 1 2 3
+// 
+
+// for n=4
+// 1 2 3 4
+// 1 4 3 2
+// 3 2 1 4
+
+
+// for n=7
+// 1 2 3 4 5 6 7
+// 1 2 7 4 5 6 3
+// 1 6 3 4 5 2 7
+// 5 2 3 4 1 6 7
+
+// for n=8
+// 1 2 3 4 5 6 7 8
+// 1 2 6 4 5 3 7 8 
+// 1 2 3 7 5 6 4 8 
+// 1 2 3 4 8 6 7 5 
+
+// for n=11
+// 1 2 3 4 5 6 7 8 9 10 11 12 sum= 39, m=7, dif=1
+// 

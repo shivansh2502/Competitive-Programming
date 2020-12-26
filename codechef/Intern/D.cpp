@@ -62,20 +62,87 @@ void sm25official()
 #endif
 }
 
+
+class graph{
+    unordered_map<int, list<int>> adjlist;
+    unordered_map<int, int> nst_spl;
+public:\
+
+    void addedge(int u, int v){
+        adjlist[u].push_back(v);
+        adjlist[v].push_back(u);
+    } 
+
+    graph(int n){
+        f(i, n){
+            list<int> l;
+            adjlist[i] = l;
+        }
+    }
+
+   
+
+   void bfstraversal(vector<int>& spl){
+
+        queue<pii> q;
+
+        map<int, bool> visited;
+
+        for(auto i : spl){
+            q.push(mp(i,0));
+            nst_spl[i] = 0;
+        }
+
+        while(!q.empty()){
+            pii no = q.front();
+
+            nst_spl[no.ff] = no.ss;
+
+            q.pop();
+           
+            for(int i : adjlist[no.ff]){
+
+                if(!visited[i] && !nst_spl.count(i)){
+                    q.push(mp(i,no.second + 1));
+                }
+                visited[i] = true;
+            }
+        }
+    }
+
+
+    void Ans(int src){
+        if(!nst_spl.count(src)) cout<<-1<<"\n";
+        else cout<<nst_spl[src]<<"\n";
+    }
+};
+
 int32_t main(){
     sm25official();
 
-    string a, b;
-    cin>>a>>b;
+    w(t){
+        int n, m, k;
+        cin>>n>>m>>k;
 
-    map<int, int> m;
-    for(int i=0;i<a.length();i++) m[a[i]]++;
-    int count=0;
-    for(int i=0;i<b.length();i++){
-        if(m[b[i]]>0) count+=m[b[i]];
+        graph gh(n);
+        f(i, m){
+            int u, v;
+            cin>>u>>v;
+            gh.addedge(u, v);
+        }
+
+        vector<int> spl(k,0);
+        f(i, k) cin>>spl[i];
+
+        gh.bfstraversal(spl);
+
+        w(q){
+            int u;
+            cin>>u;
+            gh.Ans(u);
+        }
+
     }
-
-    cout<<count<<endl;
     
     return 0;
 }

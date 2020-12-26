@@ -65,17 +65,54 @@ void sm25official()
 int32_t main(){
     sm25official();
 
-    string a, b;
-    cin>>a>>b;
+    w(t){
+        int n, m;
+        cin>>n>>m;
+        char a[n][m];
+        f(i, n){
+            f(j, m) cin>>a[i][j];
+        }
 
-    map<int, int> m;
-    for(int i=0;i<a.length();i++) m[a[i]]++;
-    int count=0;
-    for(int i=0;i<b.length();i++){
-        if(m[b[i]]>0) count+=m[b[i]];
+        int dp[n][m];
+        memset(dp, 0, sizeof(dp));
+        int count=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(a[i][j]=='*'){
+                    dp[i][j]=1;
+                    count++;
+                }
+            }
+        }
+
+        f(i, n){
+            f(j, m){
+                if(i>0 && j>0 && dp[i][j]>=1){
+                    if(dp[i-1][j]>0 && dp[i][j-1]>0){
+                        bool flag=true;
+                        int l=0;
+                        for(int k=j+1;k<m;k++){
+                            if(dp[i][k]>=1) l++;
+                            else break;
+                        }
+                        int val2= 2*l+1;
+                        dp[i][j]= min(dp[i-1][j]+2, min(dp[i][j-1]+2, val2));
+                        if(dp[i][j]>1) count+=dp[i][j]/2;
+                    }
+                }
+            }
+        }
+
+        // f(i, n){
+        //     f(j, m){
+        //         cout<<dp[i][j]<<" ";
+        //     }
+        //     cout<<endl;
+        // }
+
+        cout<<count<<endl;
+
     }
-
-    cout<<count<<endl;
     
     return 0;
 }

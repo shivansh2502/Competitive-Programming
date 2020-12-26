@@ -62,20 +62,41 @@ void sm25official()
 #endif
 }
 
+void NQueens(bool a[][10], int n, int i, int j, vector<pair<int, int>> v){
+
+    if(v.size()==n){
+        for(auto i:v){
+            cout<<i.ff<<"-"<<i.ss<<", ";
+        }
+        cout<<"."<<endl;
+    }
+
+    for(int p=0;p<n;p++){
+        for(int q=0;q<n;q++){
+            if(a[p][q]==0) v.pb(mp(p, q));
+
+            for(int i=0;i<n;i++) a[i][q]=1;
+            for(int i=0;i<n;i++) a[p][i]=1;
+            
+            
+
+        }
+    }
+
+}
+
 int32_t main(){
     sm25official();
 
-    string a, b;
-    cin>>a>>b;
+    int n;
+    cin>>n;
 
-    map<int, int> m;
-    for(int i=0;i<a.length();i++) m[a[i]]++;
-    int count=0;
-    for(int i=0;i<b.length();i++){
-        if(m[b[i]]>0) count+=m[b[i]];
-    }
+    bool a[10][10];
+    memset(a, 0, sizeof(a));
+    vector<pair<int, int>> v;
+    NQueens(a, n, 0, 0, v);
 
-    cout<<count<<endl;
+    
     
     return 0;
 }

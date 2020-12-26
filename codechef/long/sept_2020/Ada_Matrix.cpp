@@ -56,26 +56,41 @@ int mpow(int base, int exp) {
 void sm25official()
 {
     ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-#ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-#endif
+// #ifndef ONLINE_JUDGE
+//     freopen("input.txt", "r", stdin);
+//     freopen("output.txt", "w", stdout);
+// #endif
 }
 
 int32_t main(){
-    sm25official();
+  sm25official();
 
-    string a, b;
-    cin>>a>>b;
+  w(t){
+    int n;
+    cin>>n;
+    int a[n][n];
 
-    map<int, int> m;
-    for(int i=0;i<a.length();i++) m[a[i]]++;
-    int count=0;
-    for(int i=0;i<b.length();i++){
-        if(m[b[i]]>0) count+=m[b[i]];
+    f(i, n) f(j, n) cin>>a[i][j];
+      
+    int ans=0;
+    bool row=1;
+    for(int i=n-1;i>0;i--){
+      if(row){
+        if(a[0][i]!= i+1){
+          ans++;
+          row=false;
+        }
+      }
+      else{
+        if(a[i][0]!= i+1){
+          ans++;
+          row=true;
+        }
+      }
     }
-
-    cout<<count<<endl;
-    
-    return 0;
+    cout<<ans<<"\n";
+  }
+  
+  
+  return 0;
 }

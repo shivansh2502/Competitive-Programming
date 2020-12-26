@@ -62,20 +62,64 @@ void sm25official()
 #endif
 }
 
+
+class graph{
+    unordered_map<int, list<pair<int,int>>> adjlist;
+public:
+    void addedge(int u, int v, int dist){
+        adjlist[u].push_back(make_pair(v,dist));
+        adjlist[v].push_back(make_pair(u,dist));
+    }
+
+    int bfs(int u, int v){
+        
+        queue<pair<int, int>> q;
+        map<int,bool> visited;
+
+        q.push(mp(u, 0));
+        visited[u]=true;
+       
+        while(!q.empty()){
+            auto t= q.front();
+            int top= t.ff;
+            int dist= t.ss;
+            // cout<<top<<" "<<dist<<endl;
+            if(top==v) return dist;
+            q.pop();
+            for(auto i:adjlist[top]){
+                if(!visited[i.ff]){
+                    q.push(mp(i.ff, dist+i.ss));
+                    visited[i.ff]=true;
+                }
+            }
+        }
+        return -1;
+    }
+
+};
+
+
 int32_t main(){
     sm25official();
 
-    string a, b;
-    cin>>a>>b;
+    w(t){
+        int n, q, r;
+        cin>>n>>q>>r;
 
-    map<int, int> m;
-    for(int i=0;i<a.length();i++) m[a[i]]++;
-    int count=0;
-    for(int i=0;i<b.length();i++){
-        if(m[b[i]]>0) count+=m[b[i]];
+        graph g;
+
+        f(i, n-1){
+            int u, v, w;
+            cin>>u>>v>>w;
+            g.addedge(u, v, w);
+        }
+
+        f(i, q){
+            int u, v;
+            cin>>u>>v;
+            cout<<g.bfs(u, v)<<endl;
+        }
     }
-
-    cout<<count<<endl;
     
     return 0;
 }

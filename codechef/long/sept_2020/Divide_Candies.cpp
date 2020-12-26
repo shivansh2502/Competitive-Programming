@@ -65,17 +65,68 @@ void sm25official()
 int32_t main(){
     sm25official();
 
-    string a, b;
-    cin>>a>>b;
+    int k;
+    cin>>k;
 
-    map<int, int> m;
-    for(int i=0;i<a.length();i++) m[a[i]]++;
-    int count=0;
-    for(int i=0;i<b.length();i++){
-        if(m[b[i]]>0) count+=m[b[i]];
+    w(t){
+        int n;
+        cin>>n;
+
+        int sum=0;
+        switch (k){
+        case 1: sum= n*(n+1)/2;
+            break;
+        case 2: sum= n*(n+1)*(2*n + 1)/6;
+            break;
+        case 3: sum= (n*(n+1)/2)* (n*(n+1)/2);
+            break;
+        case 4: sum=  n*(1+n)*(1+2*n)*( -1 + 3*n + 3*n*n )/30;
+            break;
+        default: 
+            break;
+        }
+        // cout<<sum<<endl;
+        
+        int csum=0;
+        bool a[n+1]={0};
+        for(int i=n;i>=1;i--){
+            int dif= ((sum-csum) - csum)/2;
+            if(dif>=pow(i, k)){
+                csum+= pow(i, k);
+                a[i]=1;
+            }
+        }
+        cout<<endl;
+
+        cout<< sum - 2* csum <<endl;
+
+        fs(i,1,n+1){
+            cout<<a[i];
+        }
+        cout<<endl;
+
     }
-
-    cout<<count<<endl;
-    
+   
     return 0;
 }
+
+// 1 4 9 16 25
+// 55
+
+// 1 4 9 16 25 36
+// 91
+
+// 1 4 9 16 25 36 49
+// 140
+
+// 1 4 9 16 25 36 49 64 
+// 204
+
+// 1 4 9 16 25 36 49 64 81
+// 285
+ 
+// 1 4 9 16 25 --- 181, 149    36 49 64 81 100
+// 385
+
+// 1 4 9 16 25 36 49 64 81 100 121 144 169 196 225
+// 1240
