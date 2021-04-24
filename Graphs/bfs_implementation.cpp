@@ -31,6 +31,7 @@ public:
             }
         }
     }
+
 };
 
 int main(){
@@ -43,5 +44,6 @@ int main(){
     g.addedge(3,4);
     g.addedge(3,5);
     g.bfs(0);
-
+    
+    return 0;
 }

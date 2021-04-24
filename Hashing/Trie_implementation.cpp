@@ -25,9 +25,9 @@ public:
         root = new node('\0');
     }
     //Insertion
-    void addWord(char *word){
+    void addWord(char* word){
         
-        node*temp = root;
+        node* temp = root;
         for(int i=0;word[i]!='\0';i++){
             
             char ch = word[i];
@@ -47,8 +47,8 @@ public:
     
     //Lookup
     
-    bool search(char *word){
-        node*temp = root;
+    bool search(char* word){
+        node* temp = root;
         
         for(int i=0;word[i]!='\0';i++){
             char ch = word[i];

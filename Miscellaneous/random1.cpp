@@ -1,4 +1,6 @@
 #include<bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+using namespace __gnu_pbds;
 using namespace std;
 
 #define f(i,n)			for(int i=0;i<n;i++)
@@ -24,6 +26,9 @@ using namespace std;
 #define PI              3.1415926535897932384626
 
 mt19937                 rng(chrono::steady_clock::now().time_since_epoch().count());
+ 
+typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> pbds;
+
 
 
 int inv(int a) {
@@ -57,111 +62,70 @@ void sm25official()
 #endif
 }
 
-#define MAXN 100000 
-#define level 18 
-
-vector <int> tree[MAXN]; 
-int depth[MAXN]; 
-int parent[MAXN][level]; 
- 
-
-void dfs(int cur, int prev) { 
-    depth[cur] = depth[prev] + 1; 
-    parent[cur][0] = prev; 
-    for (int i=0; i<tree[cur].size(); i++) 
-    { 
-        if (tree[cur][i] != prev) 
-            dfs(tree[cur][i], cur); 
-    } 
-} 
-
-void precomputeSparseMatrix(int n) { 
-    for (int i=1; i<level; i++) 
-    { 
-        for (int node = 1; node <= n; node++) 
-        { 
-            if (parent[node][i-1] != -1) 
-                parent[node][i] = 
-                    parent[parent[node][i-1]][i-1]; 
-        } 
-    } 
-} 
- 
-
-int lca(int u, int v) { 
-    if (depth[v] < depth[u]) 
-        swap(u, v); 
- 
-    int diff = depth[v] - depth[u]; 
- 
-    for (int i=0; i<level; i++) 
-        if ((diff>>i)&1) 
-            v = parent[v][i]; 
- 
-    if (u == v) 
-        return u; 
- 
-    for (int i=level-1; i>=0; i--) 
-        if (parent[u][i] != parent[v][i]) 
-        { 
-            u = parent[u][i]; 
-            v = parent[v][i]; 
-        } 
- 
-    return parent[u][0]; 
-} 
- 
-void addEdge(int u,int v) 
-{ 
-    tree[u].push_back(v); 
-    tree[v].push_back(u); 
-} 
- 
-
 int32_t main(){
     sm25official();
-    memset(parent,-1,sizeof(parent)); 
 
-    int n, x;
-    cin>>n>>x;
+    int n, q;
+    cin>>n>>q;
 
-    f(i, n-1){
-        int a, b;
-        cin>>a>>b;
-        addEdge(a, b);
+    vector<int> a(n), b(n);
+    f(i,n) cin>>a[i];
+    f(i,n) cin>>b[i];
+
+    vector<int> cici(n), didi(n);
+    int max_c_current=INT_MIN, min_c_current= INT_MAX, max_d_current=INT_MIN, min_d_current= INT_MAX;
+
+    f(i, n){
+        cici[i]= a[i]+b[i];
+        didi[i]= a[i]-b[i];
+        max_c_current= max(max_c_current, cici[i]);
+        min_c_current= min(min_c_current, cici[i]);
+        max_d_current= max(max_d_current, didi[i]);
+        min_d_current= min(min_d_current, didi[i]);
     }
-
-    depth[0] = 0; 
-    dfs(1,0);
-    precomputeSparseMatrix(n); 
-
-    int q;
-    cin>>q;
-
+    
     while(q--){
-        int a, b;
-        cin>>a>>b;
-
-        int c1= lca(a, b);
-        int c2= lca(a, x);
-        int c3= lca(b, x);
-
-        if(c1==c2 && c2==c3) cout<<c3<<endl;
-        else if(c1==c2) cout<<c3<<endl; 
-        else if(c2==c3) cout<<c1<<endl; 
-        else if(c1==c3) cout<<c2<<endl; 
+        char s;
+        cin>>s;
+        if(s=='?'){
+            cout<<max(max_c_current- min_c_current , max_d_current- min_d_current)<<endl;
+        }
+        else if(s=='a'){
+            int x, y;
+            cin>>x>>y;
+            x--;
+            a[x]=y;
+            cici[x]= a[x] + b[x];
+            didi[x]= a[x] - b[x];
+            max_c_current=INT_MIN, min_c_current= INT_MAX, max_d_current=INT_MIN, min_d_current= INT_MAX;
+            f(i, n){
+                max_c_current= max(max_c_current, cici[i]);
+                min_c_current= min(min_c_current, cici[i]);
+                max_d_current= max(max_d_current, didi[i]);
+                min_d_current= min(min_d_current, didi[i]);
+            }
+        }
+        else{
+            int x, y;
+            cin>>x>>y;
+            x--;
+            b[x]=y;
+            cici[x]= a[x]+ b[x];
+            didi[x]= a[x]- b[x];
+            max_c_current=INT_MIN, min_c_current= INT_MAX, max_d_current=INT_MIN, min_d_current= INT_MAX;
+            f(i, n){
+                max_c_current= max(max_c_current, cici[i]);
+                min_c_current= min(min_c_current, cici[i]);
+                max_d_current= max(max_d_current, didi[i]);
+                min_d_current= min(min_d_current, didi[i]);
+            }
+        }
     }
-
+    
     return 0;
 }
 
-/*
-5 3
-3 2
-3 1
-2 4
-2 5
-2
-4 5
-1 5
-*/
+
+
+
+

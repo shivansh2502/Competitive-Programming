@@ -37,17 +37,17 @@ void print(Node* root){
 
 
 // Linear Approach
-void reverseLL(Node* &root){
-    Node* temp1=root;
-    Node* temp2=NULL;
-    Node* temp3=NULL;
-    while(temp1!=NULL){
-        temp3=temp2;
-        temp2=temp1;
-        temp1=temp1->next;
-        temp2->next=temp3;
+void reverseLL(Node* &head){
+    Node* cur=head;
+    Node* prev=NULL;
+    
+    while(cur!=NULL){
+        Node* next=cur->next;
+        cur->next=prev;
+        prev= cur;
+        cur= next;
     }
-    root=temp2;
+    head=prev;
     return;
 }
 

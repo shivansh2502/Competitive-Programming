@@ -1,1 +1,0 @@
-{"name":"Local: random","url":"d:\\Competitive-Programming\\Miscellaneous\\random.cpp","tests":[{"id":1608557173051,"input":"abc\nbcd","output":""},{"id":1608557463967,"input":"","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\Competitive-Programming\\Miscellaneous\\random.cpp","group":"local","local":true}

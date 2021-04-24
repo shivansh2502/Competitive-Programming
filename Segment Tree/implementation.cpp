@@ -14,7 +14,7 @@ void buildSegmentTree(int *a, int *tree, int s, int e, int treeindex){
 
 int query(int *tree,int index, int s, int e, int qs, int qe){
     //no overlap
-    if(s>qe || e<qs){
+    if(s>qe || e<qs){ 
         return 0;
     }
     //complete overlap
@@ -63,19 +63,22 @@ void rangeupdation(int *tree, int index, int s, int e, int rs, int re, int inc){
     rangeupdation(tree, 2*index+1, mid+1, e, rs, re, inc);
     tree[index]=tree[2*index]+ tree[2*index +1];
     return;
+
 }
 
 int main(){
+    
     int a[]={1, 2, 3, 4, 5, 6, 7, 8, 9};
     int n= sizeof(a)/sizeof(int);
-    int tree[2*n];
+    int tree[4*n];
 
     buildSegmentTree(a, tree, 0, n-1, 1);
     //print segment tree
-    for(int i=1;i<2*n;i++){
+    for(int i=1;i<4*n;i++){
         cout<<tree[i]<<" ";
     }
     cout<<endl;
+
     // query 
     cout<<query(tree, 1, 0, n-1, 2, 6)<<endl;
 

@@ -24,7 +24,7 @@ public:
             T node=q.front();
             q.pop();
             for(auto i: adjList[node]){
-                std::list<int>::iterator iter = std::find (parent[node].begin(), parent[node].end(), i);
+                list<int>::iterator iter = find (parent[node].begin(), parent[node].end(), i);
                 if(iter!=parent[node].end()){
                     // cout<<"Cycle"<<endl;
                    return true;

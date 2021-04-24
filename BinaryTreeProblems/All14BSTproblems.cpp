@@ -16,8 +16,8 @@ public:
 
 void insert( node*& root, int d){
     if(root==NULL){
-        node* n= new node(d);
-        root=n;
+        node* n = new node(d);
+        root = n;
         return;
     }
     else{
@@ -128,7 +128,7 @@ void printPaths(node *root){
     }
     else{
         if(root->left!=NULL){
-             printPaths(root->left);
+            printPaths(root->left);
             v.pop_back();
         }
         if(root->right!=NULL){
@@ -170,19 +170,11 @@ bool sameTree(node *root1, node *root2){
     else if((root1==NULL && root2!=NULL) || (root1!=NULL && root2==NULL)){
         return false;
     }
-    else{
-        if(root1->data == root2->data){
-            if(sameTree(root1->left, root2->left) && sameTree(root1->left, root2->left)){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-        else{
-            return false;
-        }
+   
+    if(root1->data == root2->data){
+        return (sameTree(root1->left, root2->left) && sameTree(root1->right, root2->right));
     }
+    return false; 
 }
 
 //this is equal to catlan number i.e. (2n)!/((n)!*(n+1)!)
@@ -201,6 +193,7 @@ int countTrees(int n){
         return sum;
     }
 }
+
 
 bool isBst1(node* root){
     if(root==NULL){
